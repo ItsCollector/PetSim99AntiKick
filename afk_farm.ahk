@@ -1,5 +1,5 @@
 ﻿#NoEnv  
-#Warn  
+;#Warn  
 SendMode Input  
 ;#SingleInstance, Force 
 SetWorkingDir %A_ScriptDir%  
@@ -51,9 +51,17 @@ Config:
     rb_road_help_img := A_ScriptDir "\Images\rainbow_road_icon_help.png"
 
     ; Check transparentness
-    SplashImage, %transparent_img%, m2 fm20 c0, ,After you close this tip card: Go into roblox settings and change "background transparency" to maximum `n`n The next tip card will appear 20 seconds after closing this one with new instructions, Tip Card
+    SplashImage, %transparent_img%, m2 fm20 c0, ,After you close this tip card: Go into roblox settings and change "background transparency" to maximum `n`n Right click anywhere to see the next step after this tip card is closed, Tip Card
     WaitForTipCardClose()
-    Sleep, 20000
+    
+    Loop
+    {
+        Sleep, 50
+        if (GetKeyState("RButton", "P")) ; Check if the right mouse button is pressed
+        {
+            break
+        }    
+    }
 
     ; Get leaderboard pixel coordinates
     SplashImage, %lb_pixel_help_img%, m2 fm20 c0, ,After you close this tip card: right click on one of the pixels at the top of the leaderboard capture the coordinates of it `n`n The image below shows the acceptable area you can capture, Tip Card
@@ -293,7 +301,18 @@ Rejoin()
         }
         else if (ErrorLevel = 1)
         {
-            Sleep, 5000
+            ; Check if you disconnected from the server 
+            ImageSearch, Out_X, Out_Y, A_ScreenWidth * 0.25, A_ScreenHeight * 0.25, A_ScreenWidth * 0.5, A_ScreenHeight * 0.5, *10 *Trans10 %A_ScriptDir%\Images\disconnect.png
+
+            if (ErrorLevel = 1)
+            {
+                Run % "roblox://placeID=8737899170"
+                Sleep, 10000
+            }
+            else 
+            {
+                Sleep, 5000
+            }
         }
         else if (ErrorLevel = 2)
         {
