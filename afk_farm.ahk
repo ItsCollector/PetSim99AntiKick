@@ -216,6 +216,12 @@ ImportConfig()
     return
 }
 
+; Function to check if a process exists
+ProcessExist(processName) {
+    Process, Exist, %processName%
+    return ErrorLevel
+}
+
 ; starts main loop
 F1::
     WinActivate, Roblox
@@ -241,15 +247,15 @@ F1::
         }
 
         ; Check if instance of roblox is open
-        Process, Exist, RobloxPlayerBeta.exe
-
-        if (ErrorLevel = 0)
+        if WinExist("Roblox ahk_exe RobloxPlayerBeta.exe") || WinExist("Roblox ahk_exe ApplicationFrameHost.exe")
+        {
+            Sleep, 5000
+        }
+        else
         {
             GuiControl,, ActionText, Detected disconnection, rejoining
             Rejoin()
         }
-
-        Sleep, 5000
     }
 
     return
@@ -272,11 +278,14 @@ F4::
 
 ; get cords of mouse pos
 F6:: 
-    WinActivate, Roblox
-    Sleep, 200
-    MouseGetPos, MouseX, MouseY
-    SplashImage, , m2 fm20, ,%MouseX% %MouseY%, Tip Card
-    return
+    if WinExist("Roblox ahk_exe RobloxPlayerBeta.exe")
+    {
+        MsgBox, hi
+    }
+    else
+    {
+        MsgBox, bye
+    }
 
 Rejoin()
 {
@@ -397,3 +406,5 @@ WalkToRainbowRoad()
 
     return
 }
+
+
