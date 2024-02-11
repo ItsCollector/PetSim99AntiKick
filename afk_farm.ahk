@@ -327,6 +327,8 @@ Rejoin()
 
 WalkToRainbowRoad()
 {
+    WinActivate, Roblox
+
     GuiControl,, ActionText, Looking for Rainbow Road on map
 
     if (hasClanBoost = true)
@@ -353,8 +355,14 @@ WalkToRainbowRoad()
     Sleep, 10
     Click, down
     Sleep, 10
-    MouseMove, scroll_xCord, A_ScreenHeight * 0.9
-    Sleep, 500
+    MouseMove, scroll_xCord, A_ScreenHeight * 0.5
+    Sleep, 100
+    MouseMove, scroll_xCord, A_ScreenHeight * 0.75
+    Sleep, 100
+    MouseMove, scroll_xCord, A_ScreenHeight * 0.85
+    Sleep, 100
+    MouseMove, scroll_xCord, A_ScreenHeight * 0.95
+    Sleep, 100
     Click, up
 
     ; click on rb road
