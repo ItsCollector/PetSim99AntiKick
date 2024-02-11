@@ -282,7 +282,7 @@ Rejoin()
 {
     Run % "roblox://placeID=8737899170"
     Sleep, 10000  
-
+    attempts := 0
     GuiControl,, ActionText, Loading in
     Sleep, 20000
 
@@ -296,21 +296,21 @@ Rejoin()
         if (ErrorLevel = 0)
         {
             GuiControl,, ActionText, Loaded in
+            attempts := 0
             loaded := true
             Sleep, 5000
         }
         else if (ErrorLevel = 1)
         {
-            ; Check if you disconnected from the server 
-            ImageSearch, Out_X, Out_Y, A_ScreenWidth * 0.25, A_ScreenHeight * 0.25, A_ScreenWidth * 0.5, A_ScreenHeight * 0.5, *10 *Trans10 %A_ScriptDir%\Images\disconnect.png
-
-            if (ErrorLevel = 1)
+            if (attempts > 30)
             {
                 Run % "roblox://placeID=8737899170"
+                attempts := 0
                 Sleep, 10000
             }
-            else 
+            else
             {
+                attempts++
                 Sleep, 5000
             }
         }
