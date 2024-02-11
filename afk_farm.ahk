@@ -243,7 +243,7 @@ F1::
         ; Check if instance of roblox is open
         Process, Exist, RobloxPlayerBeta.exe
 
-        if (ErrorLevel = 0)
+        if (ErrorLevel = 1)
         {
             GuiControl,, ActionText, Detected disconnection, rejoining
             Rejoin()
