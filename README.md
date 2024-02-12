@@ -1,3 +1,5 @@
+V1.0 and V1.1 have major bug with saving system, go download V1.2 for patch
+
 Requires AutoHotKey v1.1
 https://www.autohotkey.com/
 
