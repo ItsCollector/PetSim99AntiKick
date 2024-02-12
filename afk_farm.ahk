@@ -197,15 +197,15 @@ ImportConfig()
     configPath := A_ScriptDir "\config.ini"
     if FileExist(configPath)
     {
-        IniWrite, hasClanBoost, config.ini, hasClanBoost, hasClanBoost
-        IniWrite, lbPixel_xCord, config.ini, lbPixelXCord, lbPixel_xCord
-        IniWrite, lbPixel_yCord, config.ini, lbPixelYCord, lbPixel_yCord
-        IniWrite, tp_xCord, config.ini, tpXCord, tp_xCord
-        IniWrite, tp_yCord, config.ini, tpYCord, tp_yCord
-        IniWrite, scroll_xCord, config.ini, scrollXCord, scroll_xCord
-        IniWrite, scroll_yCord, config.ini, scrollYCord, scroll_yCord
-        IniWrite, rbRoad_xCord, config.ini, rbRoadXCord, rbRoad_xCord
-        IniWrite, rbRoad_yCord, config.ini, rbRoadYCord, rbRoad_yCord
+        IniRead, hasClanBoost, config.ini, hasClanBoost, hasClanBoost
+        IniRead, lbPixel_xCord, config.ini, lbPixelXCord, lbPixel_xCord
+        IniRead, lbPixel_yCord, config.ini, lbPixelYCord, lbPixel_yCord
+        IniRead, tp_xCord, config.ini, tpXCord, tp_xCord
+        IniRead, tp_yCord, config.ini, tpYCord, tp_yCord
+        IniRead, scroll_xCord, config.ini, scrollXCord, scroll_xCord
+        IniRead, scroll_yCord, config.ini, scrollYCord, scroll_yCord
+        IniRead, rbRoad_xCord, config.ini, rbRoadXCord, rbRoad_xCord
+        IniRead, rbRoad_yCord, config.ini, rbRoadYCord, rbRoad_yCord
     }
     else
     {
