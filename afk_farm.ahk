@@ -299,6 +299,7 @@ Rejoin()
     
     while (loaded = false)
     {
+        WinActivate, Roblox
         PixelSearch, OutX, OutY, lbPixel_xCord, lbPixel_yCord, lbPixel_xCord, lbPixel_yCord, %lbHexCode%     
     
         ; Checks leaderboard pixel in top right 
