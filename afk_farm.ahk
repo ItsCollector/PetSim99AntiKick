@@ -7,7 +7,7 @@ active := false
 currentAction := "Idle"
 
 ; variables
-global currentAction, hasClanBoost, lbPixel_xCord, lbPixel_yCord, lbHexCode, tp_xCord, tp_yCord, scroll_xCord, scroll_yCord, rbRoad_xCord, rbRoad_yCord
+global currentAction, hasClanBoost, lbPixel_xCord, lbPixel_yCord, lbHexCode, tp_xCord, tp_yCord, scroll_xCord, scroll_yCord, rbRoad_xCord, rbRoad_yCord, defaultLink, vipLink
 hasClanBoost := true
 lbPixel_xCord := 1715
 lbPixel_yCord := 81
@@ -18,6 +18,8 @@ scroll_xCord := 1490
 scroll_yCord := 321
 rbRoad_xCord := 763
 rbRoad_yCord := 744
+defaultLink := "roblox://placeID=8737899170"
+vipLink := " "
 
 ; GUI
 Gui, +AlwaysOnTop
@@ -34,14 +36,15 @@ Gui, Add, Text, x160 y140 w150 h60 left vActionText, % currentAction
 ; tab 2
 Gui, Tab, 2
 Gui, Add, Button, gConfig w330, Click to enter configuration mode
+Gui, Add, Text, x36 y110 w330, Enter VIP link (optional)
+Gui, Add, Edit, x36 y140 w330 vMyVipLink gSaveVipLink,
 Gui, Show, x10 y10 w400 h220, Collector's PS99 Anti-Kick, RunOnGuiShow
 
 ImportConfig()
 
 RunOnGuiShow:
-return
-
-ImportConfig()
+    GuiControl,, MyVipLink, %vipLink%
+    return
 
 Config:
     transparent_img := A_ScriptDir "\Images\transparent_help.png"
@@ -206,6 +209,7 @@ ImportConfig()
         IniRead, scroll_yCord, config.ini, scrollYCord, scroll_yCord
         IniRead, rbRoad_xCord, config.ini, rbRoadXCord, rbRoad_xCord
         IniRead, rbRoad_yCord, config.ini, rbRoadYCord, rbRoad_yCord
+        IniRead, vipLink, config.ini, vipLink, vipLink
     }
     else
     {
@@ -216,11 +220,11 @@ ImportConfig()
     return
 }
 
-; Function to check if a process exists
-ProcessExist(processName) {
-    Process, Exist, %processName%
-    return ErrorLevel
-}
+
+SaveVipLink:
+    GuiControlGet, vipLink, , MyVipLink
+    IniWrite, %vipLink%, config.ini, vipLink, vipLink
+    return
 
 ; starts main loop
 F1::
@@ -289,7 +293,15 @@ F6::
 
 Rejoin()
 {
-    Run % "roblox://placeID=8737899170"
+    if (vipLink = "")
+    {
+        Run % defaultLink
+    }
+    else
+    {
+        Run % vipLink
+    }
+
     Sleep, 10000  
     attempts := 0
     GuiControl,, ActionText, Loading in
@@ -306,6 +318,7 @@ Rejoin()
         if (ErrorLevel = 0)
         {
             GuiControl,, ActionText, Loaded in
+            Send, {tab}
             attempts := 0
             loaded := true
             Sleep, 5000
@@ -314,12 +327,21 @@ Rejoin()
         {
             if (attempts > 30)
             {
-                Run % "roblox://placeID=8737899170"
+                if (vipLink = "")
+                {
+                    Run % defaultLink
+                }
+                else
+                {
+                    Run % vipLink
+                }
+
                 attempts := 0
                 Sleep, 10000
             }
             else
             {
+                Send, {tab}
                 attempts++
                 Sleep, 5000
             }
@@ -337,6 +359,14 @@ Rejoin()
 
 WalkToRainbowRoad()
 {
+    if (vipLink != "")
+    {
+        Send, !{tab}
+        Sleep, 1000
+        Send, !{F4}
+        Sleep, 1000
+    }
+
     WinActivate, Roblox
 
     GuiControl,, ActionText, Looking for Rainbow Road on map
