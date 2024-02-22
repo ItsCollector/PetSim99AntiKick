@@ -11,7 +11,7 @@ global currentAction, hasClanBoost, lbPixel_xCord, lbPixel_yCord, lbHexCode, tp_
 hasClanBoost := true
 lbPixel_xCord := 1715
 lbPixel_yCord := 81
-lbHexCode := 0x1D1B19 
+lbHexCode := 0x000000
 tp_xCord := 176
 tp_yCord := 398
 scroll_xCord := 1490
